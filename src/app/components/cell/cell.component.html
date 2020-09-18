@@ -1,0 +1,8 @@
+<div
+    class="cell"
+    [matTooltip]="contents?.character ? contents.character.name : ''"
+    [ngStyle]="{'background-color': contents?.color || 'none'}"
+    [ngClass]="{'cursor-pointer': contents}"
+    (click)="cellClicked()"
+    >
+</div>

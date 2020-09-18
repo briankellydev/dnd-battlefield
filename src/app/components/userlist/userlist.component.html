@@ -1,0 +1,7 @@
+<div id="userlist">
+    <app-user
+        *ngFor="let character of stateService.characters$ | async; let i = index"
+        [character]="character"
+        [active]="(stateService.currentTurnIndex$ | async) === i">
+    </app-user>
+</div>
