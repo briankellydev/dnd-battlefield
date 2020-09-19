@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const http = require('http');
-const port = 4200;
+const port = process.env.PORT || 4200;
 const server = http.createServer(app).listen(port);
 const io = require('socket.io').listen(server);
 
