@@ -274,7 +274,7 @@ class AddEnemyModalComponent {
                 name: formVal.name,
                 baseMovement: formVal.movementSpeed,
                 initiativeScore: formVal.initiativeScore,
-                currentPosition: [0, 0],
+                currentPosition: [-1, -1],
                 player: this.stateService.myName$.getValue()
             },
             color: formVal.color,
@@ -428,7 +428,6 @@ class BattlefieldComponent {
             else if ((this.battlefieldState[row][column] && this.battlefieldState[row][column].isReadyToBeMovedInto) ||
                 this.stateService.isGM$.getValue()) {
                 const activeChar = this.activeCharacter;
-                console.log(activeChar);
                 if (activeChar.character.currentPosition[0] !== -1 && activeChar.character.currentPosition[1] !== -1) {
                     this.battlefieldState[activeChar.character.currentPosition[0]][activeChar.character.currentPosition[1]] = null;
                 }
@@ -439,8 +438,6 @@ class BattlefieldComponent {
                 });
                 charList[idx].character.currentPosition = [row, column];
                 this.battlefieldState[row][column] = activeChar;
-                console.log(charList);
-                console.log(this.battlefieldState);
                 // Clean out moving cells, we're done here
                 this.battlefieldState.forEach((row, rowIdx) => {
                     row.forEach((column, columnIdx) => {
@@ -657,8 +654,6 @@ class FooterComponent {
     rollInitiative() {
         this.characters.forEach((character) => {
             const roll = Math.round(Math.random() * 20) + parseInt(character.character.initiativeScore.toString(), 10);
-            console.log(roll);
-            console.log(character.character.initiativeScore);
             character.character.initiativeRoll = roll;
         });
         this.characters = this.characters.sort((a, b) => b.character.initiativeRoll - a.character.initiativeRoll);
@@ -711,7 +706,7 @@ FooterComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](10, 9, ctx.stateService.isGM$));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 11, ctx.stateService.isGM$) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 13, ctx.stateService.currentTurnIndex$) !== 0 - 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](12, 11, ctx.stateService.isGM$) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 13, ctx.stateService.currentTurnIndex$) === 0 - 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](15, 15, ctx.stateService.isMyTurn$) || _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](16, 17, ctx.stateService.isGM$));
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_8__["MatButton"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_7__["AsyncPipe"]], styles: ["footer[_ngcontent-%COMP%] {\n  color: #424242;\n  padding: 5px;\n  z-index: 10;\n  background-color: #b0bec5;\n}\nfooter[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  line-height: 5px;\n}\nfooter[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  margin-left: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9mb290ZXIvZm9vdGVyLmNvbXBvbmVudC5zY3NzIiwic3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0ksY0NGQztFREdELFlBQUE7RUFDQSxXQUFBO0VBQ0EseUJDSks7QURHVDtBQUVJO0VBQ0ksZ0JBQUE7QUFBUjtBQUVJO0VBQ0ksaUJBQUE7QUFBUiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvZm9vdGVyL2Zvb3Rlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgJy4uLy4uLy4uL3ZhcmlhYmxlcy5zY3NzJztcblxuZm9vdGVyIHtcbiAgICBjb2xvcjogJGJnO1xuICAgIHBhZGRpbmc6IDVweDtcbiAgICB6LWluZGV4OiAxMDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAkYWNjZW50O1xuICAgIGgzIHtcbiAgICAgICAgbGluZS1oZWlnaHQ6IDVweDtcbiAgICB9XG4gICAgYnV0dG9uIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gICAgfVxufSIsIiRwcmltYXJ5OiAjYzIxODViO1xuJGJnOiAjNDI0MjQyO1xuJGFjY2VudDogI2IwYmVjNTsiXX0= */"] });
@@ -952,7 +947,7 @@ class LandingComponent {
                 player: formVal.playerName,
                 baseMovement: formVal.movementSpeed,
                 initiativeScore: formVal.initiativeScore,
-                currentPosition: [0, 0],
+                currentPosition: [-1, -1],
             },
             color: formVal.color,
             id: Math.random()
