@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('updateBattlefield', battlefield);
   });
   socket.on('turnChange', () => {
-    if (currentTurn + 1 === userList.length - 1) {
+    if (currentTurn + 1 === userList.length) {
       currentTurn = 0;
     } else {
       currentTurn += 1;
