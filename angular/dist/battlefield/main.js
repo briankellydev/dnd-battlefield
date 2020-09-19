@@ -136,7 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const config = { url: 'http://localhost:4200', options: {} };
+const config = { url: `http://localhost:${process.env.PORT || 4200}`, options: {} };
 class AppModule {
 }
 AppModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({ type: AppModule, bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]] });
