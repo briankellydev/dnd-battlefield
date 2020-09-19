@@ -5,7 +5,11 @@ const methodOverride = require('method-override');
 const http = require('http');
 const port = process.env.PORT || 4200;
 const server = http.createServer(app).listen(port);
-const io = require('socket.io').listen(server);
+const io = require('socket.io')({
+  transports: ['xhr-polling'],
+  'polling duration': 10
+});
+io.listen(server);
 
 
 app.use(express.json());

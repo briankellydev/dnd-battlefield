@@ -21,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
 import { MatIconModule } from '@angular/material/icon';
 
-const config: SocketIoConfig = { url: `http://localhost`, options: {} };
+const config: SocketIoConfig = { url: window.location.hostname, options: {} };
 
 @NgModule({
   declarations: [
