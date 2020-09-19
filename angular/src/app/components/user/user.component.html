@@ -1,0 +1,25 @@
+<div class="user" [ngClass]="{'active' : active}">
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-3">
+                    <div class="chip" [ngStyle]="{'background-color': character.color}"></div>
+                </div>
+                <div class="col-6">
+                    <h3>{{character.character.name}}</h3>
+                    <p>{{character.character.player}}</p>
+                    <p *ngIf="character.character.initiativeRoll">Init: {{character.character.initiativeRoll}}</p>
+                </div>
+                <div class="col-3 text-center">
+                    <mat-icon
+                        class="cursor-pointer"
+                        *ngIf="(stateService.isGM$ | async) && (stateService.activeCharacter$ | async) === null"
+                        (click)="emitMoveCharacter()"
+                        >
+                            open_with
+                    </mat-icon>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

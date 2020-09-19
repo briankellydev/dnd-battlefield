@@ -1,7 +1,0 @@
-<div id="battlefield">
-    <ng-container *ngFor="let row of battlefieldState; let i = index">
-        <div>
-            <app-cell *ngFor="let column of row; let j = index" [contents]="column" (clicked)="cellClicked(i, j)"></app-cell>
-        </div>
-    </ng-container>
-</div>

@@ -1,0 +1,29 @@
+@import '../../../variables.scss';
+
+#play {
+    background-color: $bg;
+}
+
+app-battlefield {
+    width: 80vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+app-userlist {
+    width: 20vw;
+    height: 100vw;
+    border-left: 1px solid black;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+app-footer {
+    width: 80vw;
+    height: 50px;
+    border-top: 1px solid black;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Add Enemy</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="margin-bottom">
+            <mat-form-field>
+                <mat-label>Enemy Name</mat-label>
+                <input matInput required formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="margin-bottom">
+            <mat-form-field>
+                <mat-label>Enemy Color</mat-label>
+                <input matInput type="color" required formControlName="color">
+            </mat-form-field>
+        </div>
+        <div class="margin-bottom">
+            <mat-form-field>
+                <mat-label>Character Base Movement Speed (just the number)</mat-label>
+                <input matInput required formControlName="movementSpeed">
+            </mat-form-field>
+        </div>
+        <div class="margin-bottom">
+            <mat-form-field>
+                <mat-label>Character Initiative (number)</mat-label>
+                <input matInput required formControlName="initiativeScore">
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="text-right">
+    <button mat-raised-button color="primary" (click)="closeModal()">Add</button>
+</div>

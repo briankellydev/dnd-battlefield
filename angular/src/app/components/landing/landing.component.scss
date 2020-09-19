@@ -1,0 +1,17 @@
+@import '../../../variables.scss';
+
+#landing {
+    background-color: $bg;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    mat-card {
+        width: 30%;
+        margin: 25vh auto auto auto;
+        input, button, mat-form-field {
+            width: 100%;
+        }
+    }
+}

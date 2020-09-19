@@ -1,0 +1,88 @@
+<div id="landing">
+    <mat-card>
+        <mat-card-content>
+            <div class="text-center" *ngIf="state === LANDING_STATES.LANDED">
+                <div class="margin-bottom">
+                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.NEW_GAME)" [disabled]="(stateService.room$ | async) !== null">Join as GM</button>
+                </div>
+                <div>
+                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.EXISTING_GAME)" [disabled]="(stateService.room$ | async) === null">Join as Player</button>
+                </div>
+            </div>
+            <div *ngIf="state === LANDING_STATES.NEW_GAME">
+                    <form [formGroup]="newGameForm" (ngSubmit)="startGame()">
+                        <div  class="margin-bottom">
+                            <mat-form-field>
+                                <mat-label>Room Name</mat-label>
+                                <input matInput required formControlName="roomName">
+                            </mat-form-field>
+                        </div>
+                        <div class="margin-bottom">
+                            <mat-form-field>
+                                <mat-label>GM Name</mat-label>
+                                <input matInput required formControlName="playerName">
+                            </mat-form-field>
+                        </div>
+                        <div class="margin-bottom">
+                            <mat-form-field>
+                                <mat-label>Battlefield Width (cells, 5ft ea)</mat-label>
+                                <input matInput required formControlName="sizeX">
+                            </mat-form-field>
+                        </div>
+                        <div class="margin-bottom">
+                            <mat-form-field>
+                                <mat-label>Battlefield Height (cells, 5ft ea)</mat-label>
+                                <input matInput required formControlName="sizeY">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button type="submit" color="primary" [disabled]="!newGameForm.valid">Go!</button>
+                        </div>
+                    </form>
+            </div>
+            <div *ngIf="state === LANDING_STATES.EXISTING_GAME">
+                <form [formGroup]="existingGameForm" (ngSubmit)="enterGame()">
+                    <!--<div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Room Code</mat-label>
+                            <input matInput required formControlName="roomCode">
+                        </mat-form-field>
+                    </div>-->
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Player Name</mat-label>
+                            <input matInput required formControlName="playerName">
+                        </mat-form-field>
+                    </div>
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Player Color</mat-label>
+                            <input matInput type="color" required formControlName="color">
+                        </mat-form-field>
+                    </div>
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Character Name</mat-label>
+                            <input matInput required formControlName="characterName">
+                        </mat-form-field>
+                    </div>
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Character Base Movement Speed (just the number)</mat-label>
+                            <input matInput required formControlName="movementSpeed">
+                        </mat-form-field>
+                    </div>
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Character Initiative (number)</mat-label>
+                            <input matInput required formControlName="initiativeScore">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-raised-button type="submit" color="primary" [disabled]="!existingGameForm.valid">Go!</button>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

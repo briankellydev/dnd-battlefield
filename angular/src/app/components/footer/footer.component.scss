@@ -1,0 +1,14 @@
+@import '../../../variables.scss';
+
+footer {
+    color: $bg;
+    padding: 5px;
+    z-index: 10;
+    background-color: $accent;
+    h3 {
+        line-height: 5px;
+    }
+    button {
+        margin-left: 10px;
+    }
+}
