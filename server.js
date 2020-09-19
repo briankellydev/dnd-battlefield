@@ -33,6 +33,7 @@ let userList = [];
 let theRoom;
 let currentTurn = -1;
 let theBattlefield;
+let socketList = [];
 
 io.on('connection', (socket) => {
   console.log('socket connected');
@@ -40,6 +41,7 @@ io.on('connection', (socket) => {
   socket.emit('room', theRoom);
   socket.emit('updateCurrentTurn', currentTurn);
   socket.emit('updateBattlefield', theBattlefield);
+  socketList.push(socket.id);
 
   socket.on('add', (user) => {//when a new user logs in
     console.log('user has logged in')
@@ -85,14 +87,14 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', () => {//when someone logs out
     console.log('socket disconnected')
-    for (i = 0; i < userList.length; i++){//search for that user's socket id
-      if (userList[i].character.clientId == socket.id){
+    for (i = 0; i < socketList.length; i++){//search for that user's socket id
+      if (socketList[i] === socket.id){
         userList.splice(i, 1);//remove them from list
       };
     };
     socket.emit('newUser', userList);
     socket.broadcast.emit('newUser', userList);//push new user list to all clients
-    if (!userList.length) {
+    if (!socketList.length) {
       theRoom = null;
       currentTurn = -1;
       socket.emit('addRoom', theRoom);
