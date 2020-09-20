@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
     console.log('socket disconnected')
     for (i = 0; i < socketList.length; i++){//search for that user's socket id
       if (socketList[i] === socket.id){
-        userList.splice(i, 1);//remove them from list
+        socketList.splice(i, 1);//remove them from list
       };
     };
     socket.emit('newUser', userList);
@@ -97,6 +97,9 @@ io.on('connection', (socket) => {
     if (!socketList.length) {
       theRoom = null;
       currentTurn = -1;
+      userList = [];
+      socket.emit('newUser', userList);
+      socket.broadcast.emit('newUser', userList);
       socket.emit('addRoom', theRoom);
       socket.emit('updateBattlefield', []);
       socket.emit('updateCurrentTurn', -1);

@@ -20,8 +20,8 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
 import { MatIconModule } from '@angular/material/icon';
-
-const config: SocketIoConfig = { url: window.location.hostname, options: {} };
+// window.location.hostname
+const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
 
 @NgModule({
   declarations: [
