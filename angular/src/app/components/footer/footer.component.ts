@@ -42,8 +42,10 @@ export class FooterComponent implements OnInit, OnDestroy {
   openAddEnemyModal() {
     const dialogRef = this.dialog.open(AddEnemyModalComponent);
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((newChar: CellState) => {
-      this.characters.push(newChar);
-      this.socket.emit('updateUserList', this.characters);
+      if (newChar) {
+        this.characters.push(newChar);
+        this.socket.emit('updateUserList', this.characters);
+      }
     });
   }
 
