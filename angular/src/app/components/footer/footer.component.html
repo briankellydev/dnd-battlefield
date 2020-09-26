@@ -4,9 +4,13 @@
             <h3>{{(stateService.room$ | async)?.name}}</h3>
         </div>
         <div class="col-8 text-right">
-            <button *ngIf="stateService.isGM$ | async" mat-raised-button color="primary" (click)="openAddEnemyModal()">Add Enemy</button>
-            <button *ngIf="stateService.isGM$ | async" mat-raised-button color="primary" (click)="rollInitiative()">Roll Initiative</button>
-            <button *ngIf="(stateService.isGM$ | async) && (stateService.currentTurnIndex$ | async) === -1" mat-raised-button color="primary" (click)="beginBattle()">Begin Battle</button>
+            <button *ngIf="stateService.isGM$ | async" mat-raised-button color="primary" [matMenuTriggerFor]="menu">GM Menu</button>
+            <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let item of MENU_ITEMS">
+                    <button mat-menu-item *ngIf="item.condition"  (click)="item.action()">{{item.label}}</button>
+                </ng-container>
+                <button mat-menu-item *ngIf="(stateService.currentTurnIndex$ | async) === -1"  (click)="beginBattle()">Begin Battle</button>
+              </mat-menu>
             <button *ngIf="(stateService.isMyTurn$ | async) || (stateService.isGM$ | async)" mat-raised-button color="primary" (click)="endTurn()">End Turn</button>
         </div>
     </div>

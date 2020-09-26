@@ -18,6 +18,14 @@
                         >
                             open_with
                     </mat-icon>
+                    <br>
+                    <mat-icon
+                        class="cursor-pointer"
+                        *ngIf="(stateService.isGM$ | async) && (stateService.myId$ | async) === character.id"
+                        (click)="emitDeleteCharacter()"
+                        >
+                            delete
+                    </mat-icon>
                 </div>
             </div>
         </mat-card-content>

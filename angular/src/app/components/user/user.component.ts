@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   @Input() character: CellState;
   @Input() active: boolean;
   @Output() moveCharacter = new EventEmitter();
+  @Output() deleteCharacter = new EventEmitter();
 
 
   constructor(public stateService: StateService) { }
@@ -21,6 +22,9 @@ export class UserComponent implements OnInit {
 
   emitMoveCharacter() {
     this.moveCharacter.emit();
+  }
+  emitDeleteCharacter() {
+    this.deleteCharacter.emit();
   }
 
 }

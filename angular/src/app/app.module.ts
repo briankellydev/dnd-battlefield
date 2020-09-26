@@ -20,8 +20,11 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { ModifyBattlefieldModalComponent } from './components/modify-battlefield-modal/modify-battlefield-modal.component';
 
-const config: SocketIoConfig = { url: window.location.hostname, options: {} };
+const prod = false;
+const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://localhost:4200', options: {} };
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ const config: SocketIoConfig = { url: window.location.hostname, options: {} };
     LandingComponent,
     FooterComponent,
     PlayComponent,
-    AddEnemyModalComponent
+    AddEnemyModalComponent,
+    ModifyBattlefieldModalComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ const config: SocketIoConfig = { url: window.location.hostname, options: {} };
     MatInputModule,
     MatDialogModule,
     MatIconModule,
+    MatMenuModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
@@ -59,7 +64,7 @@ const config: SocketIoConfig = { url: window.location.hostname, options: {} };
     SocketIoModule.forRoot(config)
   ],
   providers: [],
-  entryComponents: [AddEnemyModalComponent],
+  entryComponents: [AddEnemyModalComponent, ModifyBattlefieldModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

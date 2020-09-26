@@ -4,6 +4,7 @@
         [character]="character"
         [active]="(stateService.currentTurnIndex$ | async) === i"
         (moveCharacter)="moveCharacter(character)"
+        (deleteCharacter)="deleteCharacter(character)"
         >
     </app-user>
 </div>

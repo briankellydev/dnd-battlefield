@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CellState } from 'src/app/interfaces/cell-state';
+import { CellState, Room } from 'src/app/interfaces/cell-state';
 import { StateService } from 'src/app/services/state.service';
 import { Socket } from 'ngx-socket-io';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEnemyModalComponent } from '../add-enemy-modal/add-enemy-modal.component';
+import { ModifyBattlefieldModalComponent } from '../modify-battlefield-modal/modify-battlefield-modal.component';
 
 @Component({
   selector: 'app-footer',
@@ -16,6 +17,24 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject();
   private characters: CellState[] = [];
+
+  MENU_ITEMS = [
+    {
+      label: 'Add Enemy',
+      action: this.openAddEnemyModal.bind(this),
+      condition: true
+    },
+    {
+      label: 'Roll Initiative',
+      action: this.rollInitiative.bind(this),
+      condition: true
+    },
+    {
+      label: 'New Encounter',
+      action: this.openModifyBattlefieldModal.bind(this),
+      condition: true
+    }
+  ];
 
   constructor(
     public stateService: StateService,
@@ -37,6 +56,18 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next();
+  }
+
+  openModifyBattlefieldModal() {
+    const dialogRef = this.dialog.open(ModifyBattlefieldModalComponent);
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((room: Room) => {
+      if (room) {
+        this.stateService.room$.next(room);
+        this.socket.emit('addRoom', room);
+        const battlefield = this.stateService.buildEmptyBattlefield();
+        this.socket.emit('battlefieldChange', battlefield);
+      }
+    });
   }
 
   openAddEnemyModal() {
