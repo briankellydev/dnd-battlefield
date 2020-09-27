@@ -23,7 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ModifyBattlefieldModalComponent } from './components/modify-battlefield-modal/modify-battlefield-modal.component';
 
-const prod = false;
+const prod = true;
 const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://localhost:4200', options: {} };
 
 @NgModule({
