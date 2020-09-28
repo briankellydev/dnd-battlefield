@@ -1,0 +1,18 @@
+@import '../../../variables.scss';
+
+.content {
+    width: 50vw;
+}
+
+.die {
+    background-color: $accent;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid $bg;
+    &.active {
+        background-color: $primary;
+    }
+    img {
+        width: 100%;
+    }
+}

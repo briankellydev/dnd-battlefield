@@ -34,6 +34,9 @@ let theRoom;
 let currentTurn = -1;
 let theBattlefield;
 let socketList = [];
+let maps = [];
+let currentScreenIndex = 0;
+let tokenLocation = [-200, -200];
 
 io.on('connection', (socket) => {
   console.log('socket connected');
@@ -41,6 +44,9 @@ io.on('connection', (socket) => {
   socket.emit('room', theRoom);
   socket.emit('updateCurrentTurn', currentTurn);
   socket.emit('updateBattlefield', theBattlefield);
+  socket.emit('mapListChanged', maps);
+  socket.emit('screenIndexChanged', currentScreenIndex);
+  socket.emit('updateToken', tokenLocation);
   socketList.push(socket.id);
 
   socket.on('add', (user) => {//when a new user logs in
@@ -85,6 +91,25 @@ io.on('connection', (socket) => {
     socket.emit('updateCurrentTurn', currentTurn);
     socket.broadcast.emit('updateCurrentTurn', currentTurn);
   });
+  socket.on('changeMapList', (mapList) => {
+    maps = mapList;
+    socket.emit('mapListChanged', maps);
+    socket.broadcast.emit('mapListChanged', maps);
+  });
+  socket.on('changeScreenIndex', (idx) => {
+    currentScreenIndex = idx;
+    socket.emit('screenIndexChanged', currentScreenIndex);
+    socket.broadcast.emit('screenIndexChanged', currentScreenIndex);
+  });
+  socket.on('tokenPlaced', (location) => {
+    tokenLocation = location;
+    socket.emit('updateToken', tokenLocation);
+    socket.broadcast.emit('updateToken', tokenLocation);
+  });
+  socket.on('sendMessage', (message) => {
+    socket.emit('message', message);
+    socket.broadcast.emit('message', message);
+  });
   socket.on('disconnect', () => {//when someone logs out
     console.log('socket disconnected')
     for (i = 0; i < socketList.length; i++){//search for that user's socket id
@@ -98,6 +123,9 @@ io.on('connection', (socket) => {
       theRoom = null;
       currentTurn = -1;
       userList = [];
+      currentScreenIndex = 0;
+      maps = [];
+      tokenLocation = [-200, -200];
       socket.emit('newUser', userList);
       socket.broadcast.emit('newUser', userList);
       socket.emit('addRoom', theRoom);
@@ -106,6 +134,12 @@ io.on('connection', (socket) => {
       socket.broadcast.emit('addRoom', theRoom);
       socket.broadcast.emit('updateBattlefield', []);
       socket.broadcast.emit('updateCurrentTurn', -1);
+      socket.emit('mapListChanged', maps);
+      socket.broadcast.emit('mapListChanged', maps);
+      socket.emit('screenIndexChanged', currentScreenIndex);
+      socket.broadcast.emit('screenIndexChanged', currentScreenIndex);
+      socket.emit('updateToken', tokenLocation);
+      socket.broadcast.emit('updateToken', tokenLocation);
     }
   });
 });

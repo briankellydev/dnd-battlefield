@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Roll Dice</h1>
+<div mat-dialog-content class="content">
+    <div class="row">
+        <div class="col-2 cursor-pointer die" [ngClass]="{'active': sides === die}" *ngFor="let die of DICE" (click)="selectSides(die)">
+            <img [src]="'assets/d' + die + '.png'">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Number of Dice</mat-label>
+                <input matInput type="number" [(ngModel)]="number">
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Plus</mat-label>
+                <input matInput type="number" [(ngModel)]="plus">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="text-right">
+    <button mat-raised-button color="primary" (click)="close()">Roll</button>
+</div>

@@ -4,12 +4,12 @@
     background-color: $bg;
 }
 
-app-battlefield {
+app-battlefield, #map {
     width: 80vw;
-    height: 100vh;
+    height: calc(100vh - 50px);
     position: absolute;
-    top: 0;
     left: 0;
+    overflow: scroll;
 }
 app-userlist {
     width: 20vw;
@@ -26,4 +26,20 @@ app-footer {
     position: absolute;
     left: 0;
     bottom: 0;
+}
+
+app-header {
+    width: 80vw;
+    height: 60px;
+    border-bottom: 1px solid black;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#map {
+    position: relative;
+    app-token {
+        position: absolute;
+    }
 }

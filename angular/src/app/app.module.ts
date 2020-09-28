@@ -22,8 +22,15 @@ import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-m
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ModifyBattlefieldModalComponent } from './components/modify-battlefield-modal/modify-battlefield-modal.component';
+import { MapModalComponent } from './components/map-modal/map-modal.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MapComponent } from './components/map/map.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TokenComponent } from './components/token/token.component';
+import { RollDiceModalComponent } from './components/roll-dice-modal/roll-dice-modal.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-const prod = false;
+const prod = true;
 const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://localhost:4200', options: {} };
 
 @NgModule({
@@ -37,7 +44,12 @@ const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://
     FooterComponent,
     PlayComponent,
     AddEnemyModalComponent,
-    ModifyBattlefieldModalComponent
+    ModifyBattlefieldModalComponent,
+    MapModalComponent,
+    HeaderComponent,
+    MapComponent,
+    TokenComponent,
+    RollDiceModalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +61,8 @@ const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
+    MatButtonToggleModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
@@ -64,7 +78,12 @@ const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://
     SocketIoModule.forRoot(config)
   ],
   providers: [],
-  entryComponents: [AddEnemyModalComponent, ModifyBattlefieldModalComponent],
+  entryComponents: [
+    AddEnemyModalComponent,
+    ModifyBattlefieldModalComponent,
+    RollDiceModalComponent,
+    MapModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Add Map</h1>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="margin-bottom">
+            <mat-form-field>
+                <mat-label>Map Name</mat-label>
+                <input matInput required formControlName="name">
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="margin-bottom">
+        <h4>Upload File</h4>
+        <input #fileUpload type="file" required (change)="changeFile($event)">
+    </div>
+</div>
+<div mat-dialog-actions class="text-right">
+    <button mat-raised-button color="primary" (click)="close()">Add</button>
+</div>

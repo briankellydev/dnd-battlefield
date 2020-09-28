@@ -1,0 +1,16 @@
+@import '../../../variables.scss';
+
+.outer-token {
+    height: 30px;
+    width: 30px;
+    border: 1px solid $bg;
+    background-color: $accent;
+    border-radius: 50%;
+    .inner-token {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: $primary;
+        margin: 4px;
+    }
+}

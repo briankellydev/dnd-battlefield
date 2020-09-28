@@ -4,15 +4,16 @@
             <h3>{{(stateService.room$ | async)?.name}}</h3>
         </div>
         <div class="col-8 text-right">
+            <button mat-raised-button color="secondary" (click)="openRollModal()">Roll Dice</button>
             <button *ngIf="stateService.isGM$ | async" mat-raised-button color="primary" [matMenuTriggerFor]="menu">GM Menu</button>
             <mat-menu #menu="matMenu">
                 <ng-container *ngFor="let item of MENU_ITEMS">
-                    <button mat-menu-item *ngIf="item.condition"  (click)="item.action()">{{item.label}}</button>
+                    <button mat-menu-item (click)="item.action()">{{item.label}}</button>
                 </ng-container>
+                <button mat-menu-item *ngIf="(stateService.activeScreenIndex$ | async) !== 0"  (click)="placeToken()">Place Token</button>
                 <button mat-menu-item *ngIf="(stateService.currentTurnIndex$ | async) === -1"  (click)="beginBattle()">Begin Battle</button>
               </mat-menu>
             <button *ngIf="(stateService.isMyTurn$ | async) || (stateService.isGM$ | async)" mat-raised-button color="primary" (click)="endTurn()">End Turn</button>
         </div>
     </div>
-    
 </footer>

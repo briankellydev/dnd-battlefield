@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { CellState, Room } from '../interfaces/cell-state';
+import { AppMap } from '../interfaces/map';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class StateService {
   myName$ = new BehaviorSubject<string>('');
   isMyTurn$ = new BehaviorSubject<boolean>(false);
   activeCharacter$ = new BehaviorSubject<CellState>(null);
+  maps$ = new BehaviorSubject<AppMap[]>([]);
+  activeScreenIndex$ = new BehaviorSubject<number>(0);
+  placingToken$ = new BehaviorSubject<boolean>(false);
+  tokenPosition$ = new BehaviorSubject<number[]>([-200, -200]);
 
   constructor() {
   }

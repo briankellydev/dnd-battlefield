@@ -7,6 +7,8 @@ import { Socket } from 'ngx-socket-io';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEnemyModalComponent } from '../add-enemy-modal/add-enemy-modal.component';
 import { ModifyBattlefieldModalComponent } from '../modify-battlefield-modal/modify-battlefield-modal.component';
+import { MapModalComponent } from '../map-modal/map-modal.component';
+import { RollDiceModalComponent } from '../roll-dice-modal/roll-dice-modal.component';
 
 @Component({
   selector: 'app-footer',
@@ -22,17 +24,18 @@ export class FooterComponent implements OnInit, OnDestroy {
     {
       label: 'Add Enemy',
       action: this.openAddEnemyModal.bind(this),
-      condition: true
     },
     {
       label: 'Roll Initiative',
       action: this.rollInitiative.bind(this),
-      condition: true
     },
     {
       label: 'New Encounter',
       action: this.openModifyBattlefieldModal.bind(this),
-      condition: true
+    },
+    {
+      label: 'Create Map',
+      action: this.openMapModal.bind(this)
     }
   ];
 
@@ -101,6 +104,27 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   beginBattle() {
     this.socket.emit('turnChange', 0);
+  }
+
+  openMapModal() {
+    const dialogRef = this.dialog.open(MapModalComponent);
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((file: {name: string, file: any}) => {
+      const newMaps = this.stateService.maps$.getValue().concat(file);
+      this.socket.emit('changeMapList', newMaps);
+    });
+  }
+
+  placeToken() {
+    this.stateService.placingToken$.next(true);
+  }
+
+  openRollModal() {
+    const dialogRef = this.dialog.open(RollDiceModalComponent);
+    dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((roll: number) => {
+      if (roll) {
+        this.socket.emit('sendMessage', `${this.stateService.myName$.getValue()} rolled ${roll}`);
+      }
+    });
   }
 
 }

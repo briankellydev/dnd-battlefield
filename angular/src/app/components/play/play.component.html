@@ -1,5 +1,10 @@
 <div id="play">
-    <app-battlefield></app-battlefield>
+    <app-header *ngIf="stateService.isGM$ | async"></app-header>
+    <app-battlefield [ngStyle]="{'display': (stateService.activeScreenIndex$ | async) === 0 ? 'block' : 'none', 'top': (stateService.isGM$ | async) ? '60px' : 0}"></app-battlefield>
+    <div id="map" #map [ngStyle]="{'display': (stateService.activeScreenIndex$ | async) !== 0 ? 'block' : 'none', 'top': (stateService.isGM$ | async) ? '60px' : 0}" (click)="placeToken($event)">
+        <app-map [ngClass]="{'cursor-pointer': stateService.placingToken$ | async}"></app-map>
+        <app-token [ngStyle]="{'left': tokenLocation[0] + 'px', 'top': (stateService.isGM$ | async) === true ? tokenLocation[1] -  50 + 'px' : tokenLocation[1] + 'px'}"></app-token>
+    </div>
     <app-userlist></app-userlist>
     <app-footer></app-footer>
 </div>

@@ -1,0 +1,6 @@
+<header>
+    <mat-button-toggle-group>
+        <mat-button-toggle value="0" (click)="selectMap(0)">Battlefield</mat-button-toggle>
+        <mat-button-toggle *ngFor="let map of (stateService.maps$ | async); let i = index" [value]="i + 1" (click)="selectMap(i + 1)">{{map.name}}</mat-button-toggle>
+    </mat-button-toggle-group>
+</header>
