@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.socket.on('newUser', (userList: CellState[]) => {
+      console.log(userList)
       this.stateService.characters$.next(userList);
     });
     this.socket.on('room', (room: Room) => {

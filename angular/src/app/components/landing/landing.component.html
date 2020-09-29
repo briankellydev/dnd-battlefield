@@ -3,10 +3,10 @@
         <mat-card-content>
             <div class="text-center" *ngIf="state === LANDING_STATES.LANDED">
                 <div class="margin-bottom">
-                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.NEW_GAME)" [disabled]="(stateService.room$ | async) !== null">Join as GM</button>
+                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.NEW_GAME)">Join as GM</button>
                 </div>
                 <div>
-                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.EXISTING_GAME)" [disabled]="(stateService.room$ | async) === null">Join as Player</button>
+                    <button mat-raised-button color="primary" (click)="setState(LANDING_STATES.EXISTING_GAME)">Join as Player</button>
                 </div>
             </div>
             <div *ngIf="state === LANDING_STATES.NEW_GAME">
@@ -42,12 +42,7 @@
             </div>
             <div *ngIf="state === LANDING_STATES.EXISTING_GAME">
                 <form [formGroup]="existingGameForm" (ngSubmit)="enterGame()">
-                    <!--<div class="margin-bottom">
-                        <mat-form-field>
-                            <mat-label>Room Code</mat-label>
-                            <input matInput required formControlName="roomCode">
-                        </mat-form-field>
-                    </div>-->
+                    <div *ngIf="error" class="error">{{error}}</div>
                     <div class="margin-bottom">
                         <mat-form-field>
                             <mat-label>Player Name</mat-label>
@@ -76,6 +71,12 @@
                         <mat-form-field>
                             <mat-label>Character Initiative (number)</mat-label>
                             <input matInput required formControlName="initiativeScore">
+                        </mat-form-field>
+                    </div>
+                    <div class="margin-bottom">
+                        <mat-form-field>
+                            <mat-label>Room ID</mat-label>
+                            <input matInput required formControlName="roomId">
                         </mat-form-field>
                     </div>
                     <div>
