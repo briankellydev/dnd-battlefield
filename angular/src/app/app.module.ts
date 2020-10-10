@@ -30,7 +30,7 @@ import { TokenComponent } from './components/token/token.component';
 import { RollDiceModalComponent } from './components/roll-dice-modal/roll-dice-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-const prod = false;
+const prod = true;
 const config: SocketIoConfig = { url: prod ? window.location.hostname : 'http://localhost:4200', options: {} };
 
 @NgModule({
