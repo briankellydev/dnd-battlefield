@@ -27,7 +27,11 @@ export class ModifyBattlefieldModalComponent implements OnInit {
   }
 
   close() {
-    this.dialog.close(this.form.value);
+    const room = this.stateService.room$.getValue();
+    room.name = this.form.value.name;
+    room.sizeX = this.form.value.sizeX;
+    room.sizeY = this.form.value.sizeY;
+    this.dialog.close(room);
   }
 
 }

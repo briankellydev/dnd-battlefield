@@ -51,7 +51,8 @@ export class FooterComponent implements OnInit, OnDestroy {
     });
     this.stateService.currentTurnIndex$.pipe(takeUntil(this.destroy$)).subscribe((currentTurn) => {
       if (!this.stateService.isGM$.getValue() && currentTurn !== -1) {
-        const isMyTurn = this.stateService.characters$.getValue()[currentTurn].id === this.stateService.myId$.getValue();
+        const isMyTurn = this.stateService.characters$.getValue()[currentTurn] &&
+          this.stateService.characters$.getValue()[currentTurn].id === this.stateService.myId$.getValue();
         this.stateService.isMyTurn$.next(isMyTurn);
       }
     });
@@ -66,9 +67,12 @@ export class FooterComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe((room: Room) => {
       if (room) {
         this.stateService.room$.next(room);
-        this.socket.emit('addRoom', room);
+        this.socket.emit('updateCurrentRoom', room);
         const battlefield = this.stateService.buildEmptyBattlefield();
         this.socket.emit('battlefieldChange', battlefield);
+        const userList = this.characters.filter((char) => char.id !== this.stateService.myId$.getValue());
+        this.socket.emit('updateUserList', userList);
+        this.socket.emit('turnChange', -1);
       }
     });
   }

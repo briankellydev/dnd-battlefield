@@ -81,18 +81,19 @@ io.on('connection', (socket) => {
     socket.emit('availableRooms', Object.keys(rooms));
     socket.broadcast.emit('availableRooms', Object.keys(rooms));
   });
+  socket.on('updateCurrentRoom', (room) => {
+    console.log('room has been updated');
+    socket.emit('room', room);
+    socket.broadcast.to(socket.room).emit('room', room);
+  });
   socket.on('battlefieldChange', (battlefield) => {
     console.log('battlefield changed');
     rooms[socket.room].battlefield = battlefield
     socket.emit('updateBattlefield', rooms[socket.room].battlefield);
     socket.broadcast.to(socket.room).emit('updateBattlefield', rooms[socket.room].battlefield);
   });
-  socket.on('turnChange', () => {
-    if (rooms[socket.room].currentTurn + 1 === rooms[socket.room].userList.length) {
-      rooms[socket.room].currentTurn = 0;
-    } else {
-      rooms[socket.room].currentTurn += 1;
-    }
+  socket.on('turnChange', (turn) => {
+    rooms[socket.room].currentTurn = turn;
     socket.emit('updateCurrentTurn', rooms[socket.room].currentTurn);
     socket.broadcast.to(socket.room).emit('updateCurrentTurn', rooms[socket.room].currentTurn);
   });
