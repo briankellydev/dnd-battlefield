@@ -88,7 +88,7 @@ io.on('connection', (socket) => {
     socket.broadcast.to(socket.room).emit('updateBattlefield', rooms[socket.room].battlefield);
   });
   socket.on('turnChange', () => {
-    if (rooms[socket.room].currentTurn + 1 === rooms[socket].userList.length) {
+    if (rooms[socket.room].currentTurn + 1 === rooms[socket.room].userList.length) {
       rooms[socket.room].currentTurn = 0;
     } else {
       rooms[socket.room].currentTurn += 1;
