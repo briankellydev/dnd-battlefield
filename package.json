@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "build": "npm install -g @angular/cli@10.0.0 && npm install -g @angular/compiler@10.0.0 && npm install -g @angular/compiler-cli@10.0.0 && npm install -g @angular-devkit/build-angular@0.1000.0 && cd angular && npm rebuild node-sass && cd ../ && npm install && cd angular && npm install && npm run build && cd ../ && rm -rf public && mkdir public && cpx \"angular/dist/battlefield/**/*\" public"
+    "build": "npm install",
+    "build-local": "cd angular && npm rebuild node-sass && cd ../ && npm install && cd angular && npm install && npm run build && cd ../ && rm -rf public && mkdir public && cpx \"angular/dist/battlefield/**/*\" public"
   },
   "keywords": [],
   "author": "",
